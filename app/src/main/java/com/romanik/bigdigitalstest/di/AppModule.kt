@@ -6,8 +6,8 @@ import com.romanik.bigdigitalstest.ui.list_links.PhotoLinksViewModel
 import org.koin.dsl.module.module
 
 val viewModelModule = module {
-    single { AddPhotoViewModel() }
-    single { PhotoLinksViewModel() }
+    single { AddPhotoViewModel(get()) }
+    single { PhotoLinksViewModel(get()) }
 }
 
 val repositoryModule = module {

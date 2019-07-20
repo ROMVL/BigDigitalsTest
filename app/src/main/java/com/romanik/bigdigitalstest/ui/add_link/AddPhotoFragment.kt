@@ -8,26 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.romanik.bigdigitalstest.R
+import com.romanik.bigdigitalstest.core.fragment.BaseFragment
+import com.romanik.bigdigitalstest.core.viewmodel.BaseViewModel
+import com.romanik.bigdigitalstest.databinding.FragmentAddPhotoBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AddPhotoFragment : Fragment() {
+class AddPhotoFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = AddPhotoFragment()
     }
 
-    private lateinit var viewModel: AddPhotoViewModel
+    override val viewModel: AddPhotoViewModel by viewModel()
+    override val layout: Int = R.layout.fragment_add_photo
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_add_photo, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AddPhotoViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (dataBinding as FragmentAddPhotoBinding).viewModel = viewModel
     }
 
 }

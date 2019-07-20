@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Photo(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     val link: String = "",
     val status: Status = Status.UNKNOWN

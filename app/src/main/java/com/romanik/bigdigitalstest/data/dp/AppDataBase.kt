@@ -2,6 +2,7 @@ package com.romanik.bigdigitalstest.data.dp
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.romanik.bigdigitalstest.domain.model.Photo
 
 @Database(
@@ -9,6 +10,7 @@ import com.romanik.bigdigitalstest.domain.model.Photo
     version = AppDataBase.VERSION,
     exportSchema = true
 )
+@TypeConverters(StatusConverter::class)
 abstract class AppDataBase : RoomDatabase() {
 
     companion object {

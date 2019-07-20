@@ -10,7 +10,7 @@ import com.romanik.bigdigitalstest.domain.model.Photo
 interface PhotoDao {
 
     @Insert
-    suspend fun savePhoto(photo: Photo): Int
+    suspend fun savePhoto(photo: Photo)
 
     @Query("SELECT * FROM Photo")
     fun fetchAllPhoto(): LiveData<List<Photo>>

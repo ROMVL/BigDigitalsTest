@@ -24,7 +24,7 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.photo.getValue().link}"
+
                     android:hint="@string/link" android:id="@+id/editTextLink"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button
