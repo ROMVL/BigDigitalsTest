@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.add_link.AddPhotoFragment">
+
+    <data>
+        <variable name="viewModel" type="com.romanik.bigdigitalstest.ui.add_link.AddPhotoViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="395dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp" android:id="@+id/textInputLayoutLink">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.photo.getValue().link}"
+                    android:hint="@string/link" android:id="@+id/editTextLink"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+                android:text="@string/ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{view -> viewModel.savePhotoInDb()}"
+                android:id="@+id/buttonOk" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutLink" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
+

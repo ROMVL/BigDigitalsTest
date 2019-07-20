@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable name="photo" type="com.romanik.bigdigitalstest.domain.model.Photo"/>
+        <variable name="status" type="com.romanik.bigdigitalstest.domain.model.Status"/>
+    </data>
+
+    <TextView
+            android:id="@+id/photoLink"
+            android:layout_margin="8dp"
+            android:text="@{photo.link}"
+            android:textColor="@{photo.status == status.LOADED ? @color/green : (photo.status == status.ERROR ? @color/red : @color/gray)}"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+</layout>
