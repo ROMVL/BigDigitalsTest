@@ -2,8 +2,9 @@ package com.romanik.bigdigitalstest.data.dp
 
 import androidx.room.TypeConverter
 import com.romanik.bigdigitalstest.domain.model.Status
+import java.util.*
 
-class StatusConverter {
+class DatabaseConverter {
 
     @TypeConverter
     fun convertStatusToInt(status: Status): Int = when(status) {
@@ -18,5 +19,11 @@ class StatusConverter {
         2 -> Status.ERROR
         else -> Status.UNKNOWN
     }
+
+    @TypeConverter
+    fun dateToTimeStamp(date: Date): Long = date.time
+
+    @TypeConverter
+    fun timeStampToDate(timeStamp: Long): Date = Date(timeStamp)
 
 }

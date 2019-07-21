@@ -9,4 +9,6 @@ interface IPhotoRepository {
 
     fun fetchAllPhotos(): LiveData<List<Photo>>
 
+    fun fetchAllPhotoSortedByDateDesc(): LiveData<List<Photo>>
+
 }

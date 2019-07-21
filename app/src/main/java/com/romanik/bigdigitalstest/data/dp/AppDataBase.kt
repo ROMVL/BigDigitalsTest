@@ -10,7 +10,7 @@ import com.romanik.bigdigitalstest.domain.model.Photo
     version = AppDataBase.VERSION,
     exportSchema = true
 )
-@TypeConverters(StatusConverter::class)
+@TypeConverters(DatabaseConverter::class)
 abstract class AppDataBase : RoomDatabase() {
 
     companion object {

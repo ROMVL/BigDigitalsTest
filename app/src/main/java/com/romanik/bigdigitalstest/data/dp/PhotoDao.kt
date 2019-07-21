@@ -15,4 +15,7 @@ interface PhotoDao {
     @Query("SELECT * FROM Photo")
     fun fetchAllPhoto(): LiveData<List<Photo>>
 
+    @Query("SELECT * FROM Photo ORDER BY date DESC")
+    fun fetchAllPhotoSortedByDateDesc(): LiveData<List<Photo>>
+
 }

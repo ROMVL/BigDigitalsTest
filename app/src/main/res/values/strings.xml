@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">BigDigitalsTest</string>
     <string name="link">link</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
+    <string name="add_photo">Add photo</string>
+    <string name="photos">Photos</string>
+    <string name="photos_is_empty">Photos is empty</string>
+    <string name="sort">Sort</string>
 </resources>

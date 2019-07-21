@@ -11,4 +11,6 @@ class PhotoRepository(private val photoDao: PhotoDao) : IPhotoRepository {
 
     override fun fetchAllPhotos(): LiveData<List<Photo>> = photoDao.fetchAllPhoto()
 
+    override fun fetchAllPhotoSortedByDateDesc(): LiveData<List<Photo>> = photoDao.fetchAllPhotoSortedByDateDesc()
+
 }
