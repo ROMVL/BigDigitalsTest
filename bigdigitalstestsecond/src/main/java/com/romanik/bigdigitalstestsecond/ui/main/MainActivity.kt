@@ -1,9 +1,12 @@
 package com.romanik.bigdigitalstestsecond.ui.main
 
+import android.Manifest
 import android.content.Intent
-import android.net.Uri
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModel()
     private lateinit var dataBinding: ActivityMainBinding
+    private val REQUEST_WRITE_EXTERNAL_STORAGE = 18086
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                         onSuccess = {
                             viewModel.photo.status = Status.LOADED
                             viewModel.savePhotoInDb()
+                            if (checkWriteExternalStoragePermission()) saveImageInSDCard() else requestPermission()
                         },
                         onError = {
                             viewModel.photo.status = Status.ERROR
@@ -62,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                             } else {
                                 viewModel.photo.status = Status.LOADED
                                 viewModel.updatePhotoInDb()
+                                if (checkWriteExternalStoragePermission()) saveImageInSDCard() else requestPermission()
                             }
                         },
                         onError = {
@@ -98,6 +104,38 @@ class MainActivity : AppCompatActivity() {
             putExtra(Constants.PHOTO_ID, viewModel.photo.id)
         }
         startService(deleteServiceIntent)
+    }
+
+    private fun saveImageInSDCard() {
+        viewModel.saveImage(dataBinding.ivPhoto.drawable.toBitmap())
+    }
+
+    private fun checkWriteExternalStoragePermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_WRITE_EXTERNAL_STORAGE
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQUEST_WRITE_EXTERNAL_STORAGE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    saveImageInSDCard()
+                }
+                return
+            }
+        }
     }
 
     fun notify(message: String) =

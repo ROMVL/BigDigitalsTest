@@ -3,4 +3,6 @@
     <string name="photo_deleted">Photo deleted</string>
     <string name="photo_saved">Photo saved</string>
     <string name="photo_updated">Photo updated</string>
+    <string name="photo_saved_in_sdcard">Photo saved in sdcard</string>
+    <string name="photo_not_saved_in_sdcard">Photo not saved in sdcard</string>
 </resources>
