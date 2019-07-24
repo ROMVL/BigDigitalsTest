@@ -17,6 +17,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <provider
+                android:name=".data.content_provider.PhotoProvider"
+                android:authorities="com.romanik.bigdigitalstest.providers"
+                android:enabled="true"
+                android:exported="true"/>
+
     </application>
 
 </manifest>

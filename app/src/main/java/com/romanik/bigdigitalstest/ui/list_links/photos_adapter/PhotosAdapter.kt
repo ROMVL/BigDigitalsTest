@@ -10,7 +10,9 @@ import com.romanik.bigdigitalstest.core.recyclerview.DataBindingViewHolder
 import com.romanik.bigdigitalstest.databinding.ItemPhotoRowBinding
 import com.romanik.bigdigitalstest.domain.model.Photo
 
-class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
+class PhotosAdapter(
+    private val listener: OnClickPhotoListener
+) : RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
 
     private var photos = listOf<Photo>()
 
@@ -30,14 +32,18 @@ class PhotosAdapter : RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) = holder.onBind(photos[position])
 
-    inner class PhotoViewHolder(private val viewDataBinding: ViewDataBinding) : DataBindingViewHolder<Photo>(viewDataBinding) {
+    inner class PhotoViewHolder(private val viewDataBinding: ViewDataBinding) :
+        DataBindingViewHolder<Photo>(viewDataBinding) {
 
         override fun onBind(t: Photo) {
-            with(t) {
-                viewDataBinding.setVariable(BR.photo, this)
-            }
+            viewDataBinding.setVariable(BR.photo, t)
+            viewDataBinding.root.setOnClickListener { listener.onClick(t) }
         }
 
+    }
+
+    interface OnClickPhotoListener {
+        fun onClick(photo: Photo)
     }
 
 }

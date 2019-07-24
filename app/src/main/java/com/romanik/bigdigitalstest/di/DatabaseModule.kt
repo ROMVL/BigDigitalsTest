@@ -1,6 +1,6 @@
 package com.romanik.bigdigitalstest.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.romanik.bigdigitalstest.data.dp.AppDataBase
 import com.romanik.bigdigitalstest.data.dp.PhotoDao
@@ -12,7 +12,7 @@ val databaseModule = module {
     single { providesPhotoDao(get()) }
 }
 
-fun providesDatabase(application: Application): AppDataBase {
+fun providesDatabase(application: Context): AppDataBase {
     return Room.databaseBuilder(application, AppDataBase::class.java, AppDataBase.DB_NAME).build()
 }
 

@@ -1,4 +1,4 @@
-package com.romanik.bigdigitalstest.domain.model
+package com.romanik.bigdigitalstestsecond.domain.model
 
 enum class Status(val value: Int) {
 

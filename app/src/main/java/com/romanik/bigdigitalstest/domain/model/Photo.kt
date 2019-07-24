@@ -1,5 +1,6 @@
 package com.romanik.bigdigitalstest.domain.model
 
+import android.content.ContentValues
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.text.SimpleDateFormat

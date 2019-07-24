@@ -31,7 +31,6 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun notify(message: String) =
-        Snackbar.make(dataBinding.root, message, Snackbar.LENGTH_LONG).show()
+    fun notify(message: String) = Snackbar.make(dataBinding.root, message, Snackbar.LENGTH_LONG).show()
 
 }

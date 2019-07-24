@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.romanik.bigdigitalstest.R
+import com.romanik.bigdigitalstest.core.Constants
 import com.romanik.bigdigitalstest.core.fragment.BaseFragment
 import com.romanik.bigdigitalstest.databinding.PhotoLinksFragmentBinding
+import com.romanik.bigdigitalstest.domain.model.Photo
 import com.romanik.bigdigitalstest.ui.list_links.photos_adapter.PhotosAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PhotoLinksFragment : BaseFragment() {
+class PhotoLinksFragment : BaseFragment(), PhotosAdapter.OnClickPhotoListener {
 
     companion object {
         fun newInstance() = PhotoLinksFragment()
@@ -24,7 +26,7 @@ class PhotoLinksFragment : BaseFragment() {
     override val viewModel: PhotoLinksViewModel by viewModel()
     override val layout: Int = R.layout.photo_links_fragment
     private lateinit var photoLinksFragmentBinding: PhotoLinksFragmentBinding
-    private val photosAdapter by lazy { PhotosAdapter() }
+    private val photosAdapter by lazy { PhotosAdapter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +70,7 @@ class PhotoLinksFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
+        return when (item?.itemId) {
             R.id.itemSort -> {
                 clickSort()
                 true
@@ -80,6 +82,28 @@ class PhotoLinksFragment : BaseFragment() {
     private fun clickSort() {
         viewModel.photos.removeObservers(this)
         viewModel.getSortedPhotosByDateDesc().observe(this, Observer { photosAdapter.setData(it) })
+    }
+
+    override fun onClick(photo: Photo) {
+        openSecondApp(photo)
+    }
+
+    private fun openSecondApp(photo: Photo) {
+        val intentSecondApp = requireContext().packageManager.getLaunchIntentForPackage(Constants.SECOND_APP_PACKAGE)
+        if (intentSecondApp != null) {
+            intentSecondApp.apply {
+                putExtra(Constants.PHOTO_ID, photo.id)
+                putExtra(Constants.LINK, photo.link)
+                putExtra(Constants.STATUS, photo.status.value)
+                putExtra(Constants.DATE, photo.date.time)
+                putExtra(Constants.WHERE_FROM, Constants.LIST_OF_LINKS_SCREEN)
+            }
+            startActivity(intentSecondApp)
+        } else {
+            val throwable = Throwable("Required application not installed")
+            viewModel.errorHandler(throwable)
+        }
+
     }
 
 }

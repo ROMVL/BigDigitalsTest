@@ -7,18 +7,10 @@ import java.util.*
 class DatabaseConverter {
 
     @TypeConverter
-    fun convertStatusToInt(status: Status): Int = when(status) {
-        Status.LOADED -> 1
-        Status.ERROR -> 2
-        else -> 3
-    }
+    fun convertStatusToInt(status: Status): Int = Status.convertStatusToInt(status)
 
     @TypeConverter
-    fun convertIntToStatus(value: Int): Status = when(value) {
-        1 -> Status.LOADED
-        2 -> Status.ERROR
-        else -> Status.UNKNOWN
-    }
+    fun convertIntToStatus(value: Int): Status = Status.getStatus(value)
 
     @TypeConverter
     fun dateToTimeStamp(date: Date): Long = date.time

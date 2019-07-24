@@ -7,7 +7,7 @@ import com.romanik.bigdigitalstest.domain.repository.IPhotoRepository
 
 class PhotoRepository(private val photoDao: PhotoDao) : IPhotoRepository {
 
-    override suspend fun savePhoto(photo: Photo) = photoDao.savePhoto(photo)
+    override suspend fun savePhoto(photo: Photo) = photoDao.savePhotoAsync(photo)
 
     override fun fetchAllPhotos(): LiveData<List<Photo>> = photoDao.fetchAllPhoto()
 

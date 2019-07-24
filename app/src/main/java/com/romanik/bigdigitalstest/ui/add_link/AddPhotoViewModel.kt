@@ -3,6 +3,8 @@ package com.romanik.bigdigitalstest.ui.add_link
 import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
+import com.romanik.bigdigitalstest.core.lifecycle.Event
+import com.romanik.bigdigitalstest.core.lifecycle.SingleLiveEvent
 import com.romanik.bigdigitalstest.core.viewmodel.BaseViewModel
 import com.romanik.bigdigitalstest.domain.model.Photo
 import com.romanik.bigdigitalstest.domain.model.Status
@@ -16,10 +18,16 @@ class AddPhotoViewModel(
     private val photoRepository: IPhotoRepository
 ) : BaseViewModel() {
 
-    val photoLink by lazy { ObservableField<String>() }
+    enum class AddPhotoEvent {
+        OPEN_SECOND_APP
+    }
+
+    val photoLink by lazy { ObservableField<String>("") }
+    val eventPhotoViewModel by lazy { SingleLiveEvent<Event<AddPhotoEvent>>() }
 
     fun savePhotoInDb() {
-        launch {
+        eventPhotoViewModel.value = Event(AddPhotoEvent.OPEN_SECOND_APP)
+        /*launch {
             runCatching {
                 withContext(Dispatchers.IO) {
                     photoLink.get()?.let {
@@ -35,7 +43,7 @@ class AddPhotoViewModel(
             }.onFailure {
                 errorHandler(it)
             }
-        }
+        }*/
     }
 
 }
