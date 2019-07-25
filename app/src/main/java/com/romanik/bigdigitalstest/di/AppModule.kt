@@ -7,7 +7,7 @@ import com.romanik.bigdigitalstest.ui.list_links.PhotoLinksViewModel
 import org.koin.dsl.module.module
 
 val viewModelModule = module {
-    single { AddPhotoViewModel(get()) }
+    single { AddPhotoViewModel() }
     single { PhotoLinksViewModel(get()) }
 }
 
