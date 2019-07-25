@@ -9,8 +9,7 @@ import android.net.Uri
 import com.romanik.bigdigitalstest.data.content_provider.PhotoContract.Companion.AUTHORITY
 import com.romanik.bigdigitalstest.data.content_provider.PhotoContract.Companion.PHOTO_PATH
 import com.romanik.bigdigitalstest.data.dp.PhotoDao
-import com.romanik.bigdigitalstest.di.providesDatabase
-import com.romanik.bigdigitalstest.di.providesPhotoDao
+import org.koin.android.ext.android.inject
 
 class PhotoProvider : ContentProvider() {
 
@@ -25,14 +24,10 @@ class PhotoProvider : ContentProvider() {
         }
     }
 
-    private lateinit var photoDao: PhotoDao
+    private val photoDao: PhotoDao by inject()
 
     override fun onCreate(): Boolean {
-        context?.let {
-            photoDao = providesPhotoDao(providesDatabase(it))
-            return true
-        }
-        return false
+        return true
     }
 
     override fun query(
